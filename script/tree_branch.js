@@ -15,7 +15,7 @@ export default class Branch {
         this.length += (50 - this.length) / 500;
         this.thickness += (7 - this.thickness) / 1500;
         
-        if (Math.random() < 0.004){
+        if (this.children.branches.length < 4 && Math.random() < 0.004){
             this.graph.add_branch(Math.random(), this.id, 1, Math.random() + 1, Math.random() * 0.6 - 0.3)
         }
         
