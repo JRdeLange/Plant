@@ -1,0 +1,18 @@
+{
+    "root": {
+      "id": "0",
+      "position": { "x": 200, "y": 500 }
+    },
+    "branches": [
+      {
+        "id": "1",
+        "parent_id": "0",
+        "length": 20,
+        "thickness": 2,
+        "angle_offset": 0
+      }
+    ],
+    "leaves": [
+      
+    ]
+  }
