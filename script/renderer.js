@@ -6,6 +6,8 @@ export default class Renderer{
         this.tree_graph = null;
         this.canvas = document.getElementById("treeCanvas");
         this.context = this.canvas.getContext("2d");
+
+        this.leaf_queue = [];
     }
 
     set_tree_graph(tree_graph){
@@ -18,7 +20,9 @@ export default class Renderer{
         // console.log("start")
         if (this.tree_graph) {
             this.draw_tree(this.tree_graph.root.child, this.tree_graph.root.position.x, this.tree_graph.root.position.y, -0.5)
+            this.render_leaf_queue()
         }
+
         // console.log("end")
     }
 
@@ -35,8 +39,15 @@ export default class Renderer{
         });
         // Recurse through the leaves
         current_node.children.leaves.forEach(leaf => {
-            //this.render_leaf(leaf);
+            this.leaf_queue.push([current_node, last_x, last_y, leaf, new_angle])
         });
+    }
+
+    render_leaf_queue(){
+        while (this.leaf_queue.length > 0) {
+            let leaf_info = this.leaf_queue.pop()
+            this.render_leaf(leaf_info[0], leaf_info[1], leaf_info[2], leaf_info[3], leaf_info[4])
+        }
     }
 
     
@@ -60,18 +71,18 @@ export default class Renderer{
     }
     
     
-    render_leaf(branch, x, y, leaf) {
-        const leafPositionX = x + leaf.location * branch.length * Math.cos(branch.angle_offset);
-        const leafPositionY = y + leaf.location * branch.length * Math.sin(branch.angle_offset);
+    render_leaf(branch, x, y, leaf, angle) {
+        let leafPositionX = x + leaf.location * branch.length * Math.cos(angle * Math.PI);
+        let leafPositionY = y + leaf.location * branch.length * Math.sin(angle * Math.PI);
         
         this.context.save(); // Save the current canvas context
         this.context.translate(leafPositionX, leafPositionY); // Translate to the leaf's position
-        this.context.rotate(leaf.angle_offset); // Rotate the canvas to the leaf's angle
+        this.context.rotate((angle + leaf.angle_offset) * Math.PI); // Rotate the canvas to the leaf's angle
         
         // Draw the leaf as a green ellipse
         this.context.fillStyle = 'green';
         this.context.beginPath();
-        this.context.ellipse(0, 0, leaf.size, leaf.size / 2, 0, 0, 2 * Math.PI);
+        this.context.ellipse(leaf.size, 0, leaf.size, leaf.size / 2, 0, 0, 2 * Math.PI);
         this.context.fill();
         
         this.context.restore(); // Restore the canvas context to its original state

@@ -8,6 +8,13 @@ export default class TreeGraph {
         this.root = null;
     }
 
+    update(){
+        // Calc stats
+
+
+        this.grow()
+    }
+
     grow(){
         this.root.grow();
     }
@@ -23,11 +30,12 @@ export default class TreeGraph {
     }
 
     // Function to add a branch to the tree
-    add_branch(id, parent_id, length, thickness, angle_offset, grow_chance) {
+    add_branch(id, parent_id, length, thickness, angle_offset, grow_chance, add_leafs=true) {
         let parent = this.get_node_with_id(parent_id)
         let branch = new Branch(id, parent, length, thickness, angle_offset, this, grow_chance);
         parent.add_child_branch(branch);
         this.nodes[id] = branch;
+        if (add_leafs){ branch.sprout_leafs() }
     }
 
     // Function to add a leaf to the tree

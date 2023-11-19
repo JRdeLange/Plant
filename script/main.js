@@ -14,7 +14,7 @@ function handleTreeData(jsonData) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    fetch('./mini_test.json') // Make sure the path is correct relative to your HTML file
+    fetch('./test_tree_small.json') // Make sure the path is correct relative to your HTML file
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function loop(){
     if (tree_graph){
-        tree_graph.grow()
+        tree_graph.update()
     }
     renderer.render()
     window.requestAnimationFrame(loop)
