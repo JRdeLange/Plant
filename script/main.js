@@ -14,7 +14,7 @@ function handleTreeData(jsonData) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    fetch('../mini_test.json') // Make sure the path is correct relative to your HTML file
+    fetch('./mini_test.json') // Make sure the path is correct relative to your HTML file
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);

@@ -12,8 +12,8 @@ export default class Branch {
     }
 
     grow(){
-        this.length += (50 - this.length) / 400;
-        this.thickness += (10 - this.thickness) / 600;
+        this.length += (50 - this.length) / 500;
+        this.thickness += (7 - this.thickness) / 1500;
         
         if (Math.random() < 0.004){
             this.graph.add_branch(Math.random(), this.id, 1, Math.random() + 1, Math.random() * 0.6 - 0.3)
