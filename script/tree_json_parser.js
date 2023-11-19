@@ -24,7 +24,7 @@ export default class TreeJsonParser {
     create_branches(){
         let branch_data = this.json_data.branches;
         branch_data.forEach(branch => {
-            this.tree_graph.add_branch(branch.id, branch.parent_id, branch.length, branch.thickness, branch.angle_offset);
+            this.tree_graph.add_branch(branch.id, branch.parent_id, branch.length, branch.thickness, branch.angle_offset, 0.005);
         });
     }
 

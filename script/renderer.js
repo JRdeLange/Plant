@@ -51,7 +51,7 @@ export default class Renderer{
         this.context.rotate((angle) * Math.PI); // Rotate the canvas to the branch's angle
         
         // Draw the branch as a brown rectangle
-        this.context.fillStyle = 'brown';
+        this.context.fillStyle = '#8b4513';
         this.context.fillRect(0, -branch.thickness / 2, branch.length, branch.thickness);
         
         this.context.restore(); // Restore the canvas context to its original state

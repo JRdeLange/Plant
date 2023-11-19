@@ -23,9 +23,9 @@ export default class TreeGraph {
     }
 
     // Function to add a branch to the tree
-    add_branch(id, parent_id, length, thickness, angle_offset) {
+    add_branch(id, parent_id, length, thickness, angle_offset, grow_chance) {
         let parent = this.get_node_with_id(parent_id)
-        let branch = new Branch(id, parent, length, thickness, angle_offset, this);
+        let branch = new Branch(id, parent, length, thickness, angle_offset, this, grow_chance);
         parent.add_child_branch(branch);
         this.nodes[id] = branch;
     }
