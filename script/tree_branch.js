@@ -58,7 +58,6 @@ export default class Branch {
             let angle_offset = Math.random() / 2 + 0.25
             if (Math.random() < .5){ angle_offset *= -1 }
             let location = 1 - Math.pow(Math.random(), 3);
-            console.log(location)
             this.graph.add_leaf(Math.random(), this.id, size, angle_offset, location)
         }
     }
