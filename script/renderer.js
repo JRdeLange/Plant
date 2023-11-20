@@ -42,10 +42,18 @@ export default class Renderer{
         });
     }
 
-    render_leaf_queue(){
+    render_leaf_queue() {
+        const totalLeaves = this.leaf_queue.length;
+        let initialBrightness = 1.0; // Maximum brightness
+        let brightnessDecay = 0.22; // Decrement value for brightness
+
         while (this.leaf_queue.length > 0) {
-            let leaf_info = this.leaf_queue.pop()
-            this.render_leaf(leaf_info[0], leaf_info[1], leaf_info[2], leaf_info[3], leaf_info[4])
+            let leaf_info = this.leaf_queue.pop();
+            let queuePosition = this.leaf_queue.length / totalLeaves;
+            let brightness = initialBrightness - (brightnessDecay * (queuePosition));
+            brightness = Math.max(brightness, 0); // Ensure brightness doesn't go below 0
+
+            this.render_leaf(leaf_info[0], leaf_info[1], leaf_info[2], leaf_info[3], leaf_info[4], brightness);
         }
     }
 
@@ -67,22 +75,29 @@ export default class Renderer{
         return angle
     }
     
-    
-    render_leaf(branch, x, y, leaf, angle) {
+    adjustBrightness(color, brightness) {
+        // Assuming color is a string like "rgb(0,128,0)"
+        let rgb = color.match(/\d+/g).map(Number);
+        rgb = rgb.map(component => Math.max(Math.min(component * brightness, 255), 0));
+        return `rgb(${rgb.join(",")})`;
+    }
+
+    render_leaf(branch, x, y, leaf, angle, brightness) {
         let leafPositionX = x + leaf.location * branch.length * Math.cos(angle * Math.PI);
         let leafPositionY = y + leaf.location * branch.length * Math.sin(angle * Math.PI);
-        
-        this.context.save(); // Save the current canvas context
-        this.context.translate(leafPositionX, leafPositionY); // Translate to the leaf's position
-        this.context.rotate((angle + leaf.angle_offset) * Math.PI); // Rotate the canvas to the leaf's angle
-        
-        // Draw the leaf as a green ellipse
-        this.context.fillStyle = leaf.color;
+
+        this.context.save();
+        this.context.translate(leafPositionX, leafPositionY);
+        this.context.rotate((angle + leaf.angle_offset) * Math.PI);
+
+        // Adjust leaf color based on brightness
+        let color = this.adjustBrightness(leaf.color, brightness);
+        this.context.fillStyle = color;
         this.context.beginPath();
         this.context.ellipse(leaf.size, 0, leaf.size, leaf.size / 2, 0, 0, 2 * Math.PI);
         this.context.fill();
-        
-        this.context.restore(); // Restore the canvas context to its original state
+
+        this.context.restore();
     }
     
     
