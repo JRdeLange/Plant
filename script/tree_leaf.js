@@ -26,6 +26,7 @@ export default class Leaf {
   
     // Function to simulate leaf growth over time
     grow() {
-        this.size += (this.max_size - this.size) / 1000;
+        let animation_poppiness = 70;
+        this.size += (this.max_size - this.size) / (1000 / animation_poppiness);
     }
 }
