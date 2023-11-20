@@ -12,6 +12,9 @@
     - Do it for 1
     - Evaluate solution
 
+- Make rendering faster
+    - cache rotated leafs
+
 - Pruning tool
 - Random max length of branches
 - Branch width influences branch/leaf spawn rates
