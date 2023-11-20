@@ -15,6 +15,11 @@
 - Make rendering faster
     - cache rotated leafs
 
+- Options menu
+    - Turn of leaf/branch rendering
+    - Speed
+    - Poppiness
+
 - Pruning tool
 - Random max length of branches
 - Branch width influences branch/leaf spawn rates
