@@ -4,7 +4,7 @@ export default class Branch {
     constructor(id, parent, length, thickness, angle_offset, graph, grow_chance) {
         this.id = id;
         this.parent = parent;
-        this.max_length = 22;
+        this.max_length = Math.random() * 10 + 15;
         this.length = length;
         this.thickness = thickness;
         this.angle_offset = angle_offset;
@@ -22,13 +22,14 @@ export default class Branch {
     }
 
     grow(){
-        this.length += ((this.max_length + 10 * Math.sqrt(this.n_descendants)) - this.length) / 1000;
+        this.length += ((this.max_length + (this.max_length / 2) * Math.pow(this.n_descendants, 0.4)) - this.length) / 1000;
         this.thickness += (Math.sqrt(this.n_descendants) - this.thickness) / 500;
         
         if (this.children.branches.length < 6
             //&& this.children.leaves.length == 0
             && Math.random() < this.grow_chance){
-            this.graph.add_branch(Math.random(), this.id, 1, Math.random() + 1, Math.random() * 0.8 - 0.4, this.grow_chance * 0.6)
+            this.graph.add_branch(Math.random(), this.id, 1, Math.random() + 1, Math.random() * 0.8 - 0.4, this.grow_chance * 0.55)
+            this.grow_chance *= 0.85;
         }
         
         

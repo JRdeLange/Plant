@@ -37,7 +37,8 @@ export default class Renderer{
         });
         // Recurse through the leaves
         current_node.children.leaves.forEach(leaf => {
-            this.leaf_queue.push([current_node, last_x, last_y, leaf, new_angle])
+            this.leaf_queue.push([current_node, last_x, last_y, leaf, new_angle]);
+            //this.render_leaf(current_node, last_x, last_y, leaf, new_angle);
         });
     }
 
@@ -51,9 +52,6 @@ export default class Renderer{
     
     render_branch(branch, last_x, last_y, last_angle) {
         let angle = last_angle + branch.angle_offset
-        // Calculate the end position of the branch based on its angle and length
-        const endX = last_x + branch.length * Math.cos(angle);
-        const endY = last_y + branch.length * Math.sin(angle);
         
         this.context.save(); // Save the current canvas context
         this.context.translate(last_x, last_y); // Translate to the branch's starting position
@@ -61,7 +59,8 @@ export default class Renderer{
         
         // Draw the branch as a brown rectangle
         this.context.fillStyle = '#8b4513';
-        this.context.fillRect(0, -branch.thickness / 2, branch.length, Math.max(branch.thickness, 1));
+        // Multiply length by a bit to fill up gaps in the rendering between angled branches
+        this.context.fillRect(0, -branch.thickness / 2, branch.length * 1.03, Math.max(branch.thickness, 1));
         
         this.context.restore(); // Restore the canvas context to its original state
 
