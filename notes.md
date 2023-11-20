@@ -2,13 +2,15 @@
 
 ### Loose ideas
 
+- Pruning tool
+- Amount of downstream branches affects branch thickness
+- Random colors for leafs
+- Random max length of branches
 - Branch width influences branch/leaf spawn rates
-- Nonlinear growth
-
-
-
-
-
+- Several growth functions
+- Leafs grow, age, and fall off
+- Add something to the end of branches to smooth out transitions
+- Berries
 
 
 
