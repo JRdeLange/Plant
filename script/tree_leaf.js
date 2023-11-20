@@ -10,6 +10,7 @@ export default class Leaf {
         this.angle_offset = angle_offset;
         this.location = location; // A value from 0 to 1 representing the position on the parent branch
         this.graph = graph;
+        this.color = this.generateRandomGreenColor();
     }
 
     generateRandomGreenColor() {
