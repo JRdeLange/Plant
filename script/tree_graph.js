@@ -9,10 +9,19 @@ export default class TreeGraph {
     }
 
     update(){
+        this.root.grow();
+        this.root.grow();
+        this.root.grow();
+        this.root.grow();
+        this.root.grow();
+        this.root.grow();
+        this.root.grow();
+        this.root.grow();
+        this.root.grow();
+        this.root.grow();
+        
         // Calc stats
         this.root.update_stats();
-
-        this.root.grow();
     }
 
     grow(){
