@@ -4,6 +4,7 @@ export default class Branch {
     constructor(id, parent, length, thickness, angle_offset, graph, grow_chance) {
         this.id = id;
         this.parent = parent;
+        this.max_length = 22;
         this.length = length;
         this.thickness = thickness;
         this.angle_offset = angle_offset;
@@ -21,10 +22,10 @@ export default class Branch {
     }
 
     grow(){
-        this.length += (50 - this.length) / 500;
-        this.thickness += (10 - this.thickness) / 3500;
+        this.length += ((this.max_length + 10 * Math.sqrt(this.n_descendants)) - this.length) / 1000;
+        this.thickness += (Math.sqrt(this.n_descendants) - this.thickness) / 500;
         
-        if (this.children.branches.length < 4
+        if (this.children.branches.length < 6
             //&& this.children.leaves.length == 0
             && Math.random() < this.grow_chance){
             this.graph.add_branch(Math.random(), this.id, 1, Math.random() + 1, Math.random() * 0.8 - 0.4, this.grow_chance * 0.6)
@@ -41,8 +42,13 @@ export default class Branch {
 
     }
 
-    update_descendants(){
-        let total = 0;
+    update_stats(){
+        let total = 1;
+        this.children.branches.forEach(branch => {
+            total += branch.update_stats();
+        })
+        this.n_descendants = total;
+        return total;
     }
 
     sprout_leafs(){
@@ -51,7 +57,9 @@ export default class Branch {
             let size = Math.floor(Math.random() * 7 + 5)
             let angle_offset = Math.random() / 2 + 0.25
             if (Math.random() < .5){ angle_offset *= -1 }
-            this.graph.add_leaf(Math.random(), this.id, size, angle_offset, Math.random())
+            let location = 1 - Math.pow(Math.random(), 3);
+            console.log(location)
+            this.graph.add_leaf(Math.random(), this.id, size, angle_offset, location)
         }
     }
 

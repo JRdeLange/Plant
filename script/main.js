@@ -10,7 +10,7 @@ let tree_graph = null
 function handleTreeData(jsonData) {
     const treeParser = new TreeJsonParser(jsonData);
     tree_graph = treeParser.parse();
-    renderer.set_tree_graph(tree_graph)
+    renderer.add_tree_graph(tree_graph)
 }
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -1,10 +1,18 @@
 ##### Growth algorithm #####
 
+
+### Currently working on
+
+
+
+
 ### Loose ideas
 
+- Make variables adjustable
+    - Do it for 1
+    - Evaluate solution
+
 - Pruning tool
-- Amount of downstream branches affects branch thickness
-- Random colors for leafs
 - Random max length of branches
 - Branch width influences branch/leaf spawn rates
 - Several growth functions

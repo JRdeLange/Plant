@@ -13,6 +13,10 @@ export default class Root {
         this.child.grow();
     }
 
+    update_stats(){
+        this.child.update_stats();
+    }
+
     // Function to add the first branch to the root
     add_child_branch(branch) {
         this.child = branch;

@@ -1,13 +1,13 @@
 {
     "root": {
       "id": "0",
-      "position": { "x": 350, "y": 500 }
+      "position": { "x": 500, "y": 800 }
     },
     "branches": [
       {
         "id": "1",
         "parent_id": "0",
-        "length": 20,
+        "length": 15,
         "thickness": 2,
         "angle_offset": 0
       }

@@ -3,27 +3,25 @@ import Branch from "./tree_branch.js"
 
 export default class Renderer{
     constructor(){
-        this.tree_graph = null;
+        this.tree_graphs = [];
         this.canvas = document.getElementById("treeCanvas");
         this.context = this.canvas.getContext("2d");
 
         this.leaf_queue = [];
     }
 
-    set_tree_graph(tree_graph){
-        this.tree_graph = tree_graph;
+    add_tree_graph(tree_graph){
+        this.tree_graphs.push(tree_graph);
     }
 
 
     render(){
         this.draw_background();
-        // console.log("start")
-        if (this.tree_graph) {
-            this.draw_tree(this.tree_graph.root.child, this.tree_graph.root.position.x, this.tree_graph.root.position.y, -0.5)
-            this.render_leaf_queue()
-        }
 
-        // console.log("end")
+        this.tree_graphs.forEach(tree_graph =>{
+            this.draw_tree(tree_graph.root.child, tree_graph.root.position.x, tree_graph.root.position.y, -0.5)
+            this.render_leaf_queue()
+        })
     }
 
     draw_tree(current_node, last_x, last_y, last_angle){
@@ -63,7 +61,7 @@ export default class Renderer{
         
         // Draw the branch as a brown rectangle
         this.context.fillStyle = '#8b4513';
-        this.context.fillRect(0, -branch.thickness / 2, branch.length, branch.thickness);
+        this.context.fillRect(0, -branch.thickness / 2, branch.length, Math.max(branch.thickness, 1));
         
         this.context.restore(); // Restore the canvas context to its original state
 
@@ -80,7 +78,7 @@ export default class Renderer{
         this.context.rotate((angle + leaf.angle_offset) * Math.PI); // Rotate the canvas to the leaf's angle
         
         // Draw the leaf as a green ellipse
-        this.context.fillStyle = 'green';
+        this.context.fillStyle = leaf.color;
         this.context.beginPath();
         this.context.ellipse(leaf.size, 0, leaf.size, leaf.size / 2, 0, 0, 2 * Math.PI);
         this.context.fill();

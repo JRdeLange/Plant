@@ -10,10 +10,22 @@ export default class Leaf {
         this.angle_offset = angle_offset;
         this.location = location; // A value from 0 to 1 representing the position on the parent branch
         this.graph = graph;
+        this.color = this.generateRandomGreenColor()
+    }
+
+    generateRandomGreenColor() {
+        // Randomly generate the red and blue components (keeping them lower)
+        let red = Math.floor(Math.random() * 40);
+        let blue = Math.floor(Math.random() * 40);
+    
+        // Keep the green component high to ensure the color is predominantly green
+        let green = Math.floor(Math.random() * 70 + (256 - 100));
+    
+        return `rgb(${red}, ${green}, ${blue})`;
     }
   
     // Function to simulate leaf growth over time
     grow() {
-        this.size += (this.max_size - this.size) / 150;
+        this.size += (this.max_size - this.size) / 1000;
     }
 }
